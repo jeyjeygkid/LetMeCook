@@ -1,8 +1,6 @@
 # Let Me Cook! (Running Dinner) – Render Free (files safe)
 
-Render Free hat kein persistentes Filesystem. Deshalb speichert dieses Projekt Laufkarten-PNGs standardmäßig **in der Datenbank** (`STORAGE_BACKEND=db`).
-
-Optional kannst du auf S3/R2 auslagern (`STORAGE_BACKEND=s3`), wenn du langfristig maximale Persistenz willst.
+Render Free hat kein persistentes Filesystem. Dieses Projekt speichert Laufkarten-PNGs standardmäßig **in der Datenbank** (`STORAGE_BACKEND=db`).
 
 ## Render Web Service
 Build: `pip install -r requirements.txt`
