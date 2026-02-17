@@ -24,10 +24,10 @@ except Exception:
 APP_NAME = "Let Me Cook!"
 APP_TAGLINE = "Running Dinner"
 
-APP_SECRET = os.environ.get("APP_SECRET", "dev-change-me")
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin-change-me")
+APP_SECRET = os.environ.get("APP_SECRET", "developer")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "Batcom")
 
-EVENT_PIN = (os.environ.get("EVENT_PIN", "") or "").strip()
+EVENT_PIN = (os.environ.get("EVENT_PIN", "1337") or "").strip()
 BASE_URL = os.environ.get("BASE_URL", "http://127.0.0.1:5000")
 
 DATABASE_URL = (os.environ.get("DATABASE_URL", "") or "").strip()
