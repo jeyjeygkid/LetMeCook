@@ -10,9 +10,9 @@
   <header class="bar">
     <div class="wrap bar-inner">
       <div class="brand">
-        <div class="logo" aria-label="Logo Platzhalter">
-          <span>LOGO</span>
-        </div>
+        <a href="{{ url_for('index') }}" class="logo" aria-label="Let Me Cook Logo">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Let Me Cook Logo">
+        </a>
         <div class="brandtext">
           <a class="brandname" href="{{ url_for('index') }}">{{ APP_NAME }}</a>
           <div class="tagline">{{ APP_TAGLINE }}</div>
