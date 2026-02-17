@@ -3,8 +3,19 @@ body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-seri
 .bar { background: #0f0f12; color:#fff; position: sticky; top:0; z-index:10; }
 .bar-inner { display:flex; gap:16px; align-items:center; justify-content:space-between; }
 .brand { display:flex; gap:12px; align-items:center; }
-.logo { width:44px; height:44px; border-radius: 12px; background:#222; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.15); }
-.logo span { font-size: 11px; opacity:.8; }
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;        /* Header-Höhe */
+}
+
+.logo img {
+  max-height: 50px;    /* begrenzt Bildgröße */
+  width: auto;
+  height: auto;
+  display: block;
+}
 .brandtext { display:flex; flex-direction:column; line-height:1.1; }
 .brandname { color:#fff; text-decoration:none; font-weight:800; font-size: 16px; }
 .tagline { font-size: 12px; opacity:.75; margin-top: 2px; }
