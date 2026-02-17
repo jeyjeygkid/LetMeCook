@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Admin</h1>
+
+<div class="row">
+  <a class="btn secondary" href="{{ url_for('admin_export_xlsx') }}">Export XLSX (Matching-Input)</a>
+  <a class="btn" href="{{ url_for('admin_upload_laufkarten') }}">Laufkarten (ZIP/PNG) hochladen</a>
+  <a class="btn secondary" href="{{ url_for('admin_logout') }}">Admin Logout</a>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <h3>Event-Daten</h3>
+    <form method="post" class="form">
+      <label>Event-Datum (ISO oder frei, z. B. 2026-06-12 18:00)</label>
+      <input name="event_date" value="{{ event_date or '' }}" placeholder="YYYY-MM-DD HH:MM">
+
+      <label>Info-Block (mehrzeilig)</label>
+      <textarea name="info_block" rows="6" placeholder="Hinweise, Regeln, Uhrzeiten, Treffpunkt…">{{ info_block or '' }}</textarea>
+
+      <button class="btn" type="submit">Speichern</button>
+      <small class="hint">Countdown parst am sichersten <code>YYYY-MM-DD HH:MM</code></small>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Status</h3>
+    <div class="row tight">
+      <div class="pill">Teams: <b>{{ teams_count }}</b></div>
+      <div class="pill">Event: <b id="eventDateInline">{{ event_date or "—" }}</b></div>
+      <div class="pill">Countdown: <b id="countdownInline">—</b></div>
+    </div>
+    <p class="muted">PNG-Labeling: Dateiname ohne <code>.png</code> = Teamname (case-insensitive).</p>
+    <p class="muted"><b>Mailversand ist deaktiviert.</b> Registrierung erfordert Event-PIN (Login ohne PIN) (ENV: <code>EVENT_PIN</code>).</p>
+  </div>
+</div>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Team</th>
+      <th>Course</th>
+      <th>Diet</th>
+      <th>PNG</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in rows %}
+      <tr>
+        <td>{{ r["email"] }}</td>
+        <td>{{ r["teamname"] or "" }}</td>
+        <td>{{ r["chosen_course"] or "" }}</td>
+        <td>{{ r["diet"] or "" }}</td>
+        <td>{{ r["route_png_filename"] or "" }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<script>
+  window.LMC_EVENT_DATE = "{{ event_date | e }}";
+</script>
+{% endblock %}

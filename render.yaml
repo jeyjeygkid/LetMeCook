@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: let-me-cook
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.4
+      - key: APP_SECRET
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        value: change-me
+      - key: EVENT_PIN
+        value: change-me
+      - key: STORAGE_BACKEND
+        value: db
+      - key: DATABASE_URL
+        sync: false

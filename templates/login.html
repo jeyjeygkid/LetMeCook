@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Login</h1>
+
+<div class="row tight">
+  <div class="pill">Teams: <b>{{ teams_count }}</b></div>
+  <div class="pill">Event: <b id="eventDateInline">{{ event_date or "—" }}</b></div>
+  <div class="pill">Countdown: <b id="countdownInline">—</b></div>
+</div>
+
+<form method="post" class="form">
+<label>E-Mail</label>
+  <input name="email" type="email" required />
+
+  <label>Passwort</label>
+  <input name="password" type="password" required />
+
+  <button class="btn" type="submit">Einloggen</button>
+</form>
+
+<script>
+  window.LMC_EVENT_DATE = "{{ event_date | e }}";
+</script>
+{% endblock %}

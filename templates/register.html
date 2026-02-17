@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Registrieren</h1>
+
+<div class="row tight">
+  <div class="pill">Teams: <b>{{ teams_count }}</b></div>
+  <div class="pill">Event: <b id="eventDateInline">{{ event_date or "—" }}</b></div>
+  <div class="pill">Countdown: <b id="countdownInline">—</b></div>
+</div>
+
+{% if info_block %}
+  <div class="infobox">
+    <h3>Info</h3>
+    <div class="infotext">{{ info_block | e | replace('\n','<br>') | safe }}</div>
+  </div>
+{% endif %}
+
+<form method="post" class="form">
+  <label>Event-PIN *</label>
+  <input name="event_pin" type="password" required placeholder="PIN von der Orga">
+
+  <label>E-Mail *</label>
+  <input name="email" type="email" required />
+
+  <label>Passwort *</label>
+  <input name="password" type="password" required minlength="6" />
+
+  <hr>
+
+  <label>Teamname *</label>
+  <input name="teamname" required />
+
+  <label>Wunschgang *</label>
+  <select name="chosen_course" required>
+    {% for opt in COURSE_OPTIONS %}
+      <option value="{{ opt }}">{{ opt }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Diet *</label>
+  <select name="diet" required>
+    {% for opt in DIET_OPTIONS %}
+      <option value="{{ opt }}">{{ opt }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Member1 (Vorname Nachname) *</label>
+  <input name="member1" required placeholder="Vorname Nachname" />
+
+  <label>Member2 (Vorname Nachname) *</label>
+  <input name="member2" required placeholder="Vorname Nachname" />
+
+  <label>Adress *</label>
+  <input name="adress" required placeholder="Straße Hausnr, PLZ Ort" />
+
+  <label>Klingelname *</label>
+  <input name="klingelname" required />
+
+  <label>Coordinates (optional)</label>
+  <input name="coordinates" placeholder="lat,lon" />
+
+  <label>Special / Anmerkungen (optional)</label>
+  <textarea name="special" rows="3"></textarea>
+
+  <button class="btn" type="submit">Registrieren</button>
+</form>
+
+<script>
+  window.LMC_EVENT_DATE = "{{ event_date | e }}";
+</script>
+{% endblock %}

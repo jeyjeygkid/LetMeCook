@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="row tight">
+  <div class="pill">Teams: <b>{{ teams_count }}</b></div>
+  <div class="pill">Event: <b id="eventDateInline">{{ event_date or "—" }}</b></div>
+  <div class="pill">Countdown: <b id="countdownInline">—</b></div>
+</div>
+
+{% if info_block %}
+  <div class="infobox">
+    <h3>Info</h3>
+    <div class="infotext">{{ info_block | e | replace('\n','<br>') | safe }}</div>
+  </div>
+{% endif %}
+
+<div class="cards">
+  <div class="card">
+    <h3>Deine Laufkarte</h3>
+
+    {% if assignment and assignment["route_png_path"] %}
+      <div class="imgwrap">
+        <img class="laufkarte" src="{{ url_for('dashboard_laufkarte_png') }}" alt="Laufkarte" />
+      </div>
+      <div class="row">
+        <a class="btn" href="{{ url_for('dashboard_laufkarte_png_download') }}">Download (PNG)</a>
+      </div>
+    {% else %}
+      <p>Noch nicht verfügbar. Sobald die Orga die PNGs hochlädt, erscheint sie hier.</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h3>Deine Eingaben</h3>
+    <form method="post" class="form">
+      <label>Teamname *</label>
+      <input name="teamname" value="{{ reg['teamname'] if reg else '' }}" required />
+
+      <label>Wunschgang *</label>
+      <select name="chosen_course" required>
+        {% for opt in COURSE_OPTIONS %}
+          <option value="{{ opt }}" {% if reg and reg['chosen_course']==opt %}selected{% endif %}>{{ opt }}</option>
+        {% endfor %}
+      </select>
+
+      <label>Diet *</label>
+      <select name="diet" required>
+        {% for opt in DIET_OPTIONS %}
+          <option value="{{ opt }}" {% if reg and reg['diet']==opt %}selected{% endif %}>{{ opt }}</option>
+        {% endfor %}
+      </select>
+
+      <label>Member1 *</label>
+      <input name="member1" value="{{ reg['Member1'] if reg else '' }}" required />
+
+      <label>Member2 *</label>
+      <input name="member2" value="{{ reg['Member2'] if reg else '' }}" required />
+
+      <label>Adress *</label>
+      <input name="adress" value="{{ reg['Adress'] if reg else '' }}" required />
+
+      <label>Klingelname *</label>
+      <input name="klingelname" value="{{ reg['Klingelname'] if reg else '' }}" required />
+
+      <label>Coordinates (optional)</label>
+      <input name="coordinates" value="{{ reg['Coordinates'] if reg and reg['Coordinates'] else '' }}" />
+
+      <label>Special (optional)</label>
+      <textarea name="special" rows="3">{{ reg['Special'] if reg and reg['Special'] else '' }}</textarea>
+
+      <button class="btn" type="submit">Speichern</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  window.LMC_EVENT_DATE = "{{ event_date | e }}";
+</script>
+{% endblock %}

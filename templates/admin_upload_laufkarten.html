@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Laufkarten (ZIP/PNG) hochladen</h1>
+
+<div class="card">
+  <p>ZIP hochladen, die <b>eine PNG pro Team</b> enthält.</p>
+  <p><b>Dateiname-Regel:</b> Dateiname ohne Endung muss dem <code>teamname</code> entsprechen (case-insensitive).</p>
+  <p>Beispiel: <code>Team Müller.png</code> → teamname <code>Team Müller</code></p>
+</div>
+
+<form method="post" enctype="multipart/form-data" class="form">
+  <label>ZIP-Datei (enthält PNGs)</label>
+  <input type="file" name="zipfile" accept=".zip" required />
+  <button class="btn" type="submit">Importieren</button>
+</form>
+
+<script>
+  window.LMC_EVENT_DATE = "{{ event_date | e }}";
+</script>
+{% endblock %}

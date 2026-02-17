@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Live-Chat</h1>
+  <p class="muted">Öffentlich sichtbar.</p>
+
+  <div class="row tight">
+    <div class="pill">Teams: <b>{{ teams_count }}</b></div>
+    <div class="pill">Event: <b id="eventDateInline">{{ event_date or "—" }}</b></div>
+    <div class="pill">Countdown: <b id="countdownInline">—</b></div>
+  </div>
+
+  {% if info_block %}
+    <div class="infobox">
+      <h3>Info</h3>
+      <div class="infotext">{{ info_block | e | replace('\n','<br>') | safe }}</div>
+    </div>
+  {% endif %}
+
+  <div class="chatbox">
+    {% for m in messages %}
+      <div class="msg">
+        <div class="meta"><b>{{ m["nickname"] }}</b> · <span class="ts">{{ m["created_at"] }}</span></div>
+        <div class="body">{{ m["message"] | e | replace('\n','<br>') | safe }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <form method="post" class="form">
+    <label>Nickname</label>
+    <input name="nickname" maxlength="40" placeholder="z. B. Team Alfa" required>
+
+    <label>Nachricht</label>
+    <textarea name="message" rows="3" maxlength="500" placeholder="Schreib was…" required></textarea>
+
+    <button class="btn" type="submit">Senden</button>
+    <small class="hint">Spam-Schutz: max. 1 Nachricht / 5 Sekunden pro Browser-Session.</small>
+  </form>
+
+  <script>
+    window.LMC_EVENT_DATE = "{{ event_date | e }}";
+  </script>
+{% endblock %}

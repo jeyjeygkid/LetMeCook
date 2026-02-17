@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="hero">
+    <h1>{{ APP_NAME }}</h1>
+    <p class="sub">{{ APP_TAGLINE }} – Anmeldung & Laufkarten</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="statnum">{{ teams_count }}</div>
+        <div class="statlabel">angemeldete Teams</div>
+      </div>
+      <div class="stat">
+        <div class="statnum" id="eventDate">{{ event_date or "—" }}</div>
+        <div class="statlabel">Event-Datum (Admin)</div>
+      </div>
+      <div class="stat">
+        <div class="statnum" id="countdown">—</div>
+        <div class="statlabel">Countdown</div>
+      </div>
+    </div>
+
+    {% if info_block %}
+      <div class="infobox">
+        <h3>Info</h3>
+        <div class="infotext">{{ info_block | e | replace('\n','<br>') | safe }}</div>
+      </div>
+    {% endif %}
+
+    <div class="cards">
+      <div class="card">
+        <h3>Teilnehmen</h3>
+        <p>Team registrieren oder einloggen (Event-PIN erforderlich).</p>
+        <a class="btn" href="{{ url_for('register') }}">Registrieren</a>
+        <a class="btn secondary" href="{{ url_for('login') }}">Login</a>
+      </div>
+      <div class="card">
+        <h3>Community</h3>
+        <p>Offener Live-Chat / Forum für Fragen & Absprachen.</p>
+        <a class="btn" href="{{ url_for('chat') }}">Zum Live-Chat</a>
+      </div>
+      <div class="card">
+        <h3>Orga</h3>
+        <p>Admin: Excel-Export, Laufkarten-Upload, Eventdaten.</p>
+        <a class="btn" href="{{ url_for('admin_root') }}">Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.LMC_EVENT_DATE = "{{ event_date | e }}";
+  </script>
+{% endblock %}
